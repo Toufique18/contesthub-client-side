@@ -5,6 +5,7 @@ import Home from "../pages/Home";
 import Contest from "../pages/Contest";
 import Dashboard from "../layouts/Dashboard";
 import ManageUser from "../pages/ManageUser";
+import Login from "../pages/Login";
 
 
 
@@ -26,10 +27,10 @@ const router = createBrowserRouter([
                 loader: ()=> fetch("http://localhost:5000/contest_info")
 
             },
-            // {
-            //     path: '/login',
-            //     element: <Login></Login>
-            // },
+            {
+                path: '/login',
+                element: <Login></Login>
+            },
             // {
             //     path: '/register',
             //     element: <Register></Register>

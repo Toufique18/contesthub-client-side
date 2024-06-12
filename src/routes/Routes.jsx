@@ -2,6 +2,9 @@ import { createBrowserRouter } from "react-router-dom";
 import Root from "../layouts/Root";
 //import ErrorPage from "../pages/ErrorPage";
 import Home from "../pages/Home";
+import Contest from "../pages/Contest";
+import Dashboard from "../layouts/Dashboard";
+import ManageUser from "../pages/ManageUser";
 
 
 
@@ -17,6 +20,12 @@ const router = createBrowserRouter([
                 loader: ()=> fetch("http://localhost:5000/contest_info")
 
             },
+            {
+                path:'/contests',
+                element: <Contest></Contest>,
+                loader: ()=> fetch("http://localhost:5000/contest_info")
+
+            },
             // {
             //     path: '/login',
             //     element: <Login></Login>
@@ -29,6 +38,16 @@ const router = createBrowserRouter([
             
           
             
+        ]
+    },
+    {
+        path: '/dashboard',
+        element: <Dashboard></Dashboard>,
+        children: [
+           {
+            path: 'manageUser',
+            element: <ManageUser></ManageUser>
+           }
         ]
     }
 ])

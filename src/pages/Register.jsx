@@ -1,12 +1,15 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import Swal from "sweetalert2";
 import { updateProfile } from "firebase/auth";
+import { FcGoogle } from "react-icons/fc";
 
 const Register = () => {
 
-    const { createUser } = useContext(AuthContext);
+    const { createUser, signInWithGoogle } = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const handleRegister = e => {
         e.preventDefault();
@@ -33,13 +36,46 @@ const Register = () => {
                   updateProfile(result.user, {
                     displayName: name,
                     photoURL: photo
-                  })
+                }).then(() => {
+                    // Save user info to MongoDB
+                    saveUserToDatabase(result.user);
+                });
             })
             .catch(error => {
-                console.error(error)
-            })
+                console.error(error);
+            });
 
     }
+    const handleGoogleSignIn = async () => {
+        try {
+            const result = await signInWithGoogle();
+            saveUserToDatabase(result.user);
+            navigate(location?.state ? location.state : "/");
+        } catch (error) {
+            console.error("Google sign in error:", error);
+        }
+    };
+
+    const saveUserToDatabase = (user) => {
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                displayName: user.displayName,
+                email: user.email,
+                
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('User saved to database', data);
+        })
+        .catch(error => {
+            console.error('Error saving user to database', error);
+        });
+    };
 
     return (
         <div>
@@ -77,6 +113,10 @@ const Register = () => {
                         <button className="btn btn-primary">Register</button>
                     </div>
                 </form>
+                <div className="text-center">
+                <button onClick={handleGoogleSignIn} className="btn btn-ghost"><FcGoogle />
+                        Login with Google</button>
+                </div>
                 <p className="text-center mt-4">Have an account? please <Link className="text-blue-600 font-bold" to="/login">Login</Link></p>
             </div>
 

@@ -6,6 +6,7 @@ import Contest from "../pages/Contest";
 import Dashboard from "../layouts/Dashboard";
 import ManageUser from "../pages/ManageUser";
 import Login from "../pages/Login";
+import Register from "../pages/Register";
 
 
 
@@ -31,10 +32,10 @@ const router = createBrowserRouter([
                 path: '/login',
                 element: <Login></Login>
             },
-            // {
-            //     path: '/register',
-            //     element: <Register></Register>
-            // },
+            {
+                path: '/register',
+                element: <Register></Register>
+            },
             
             
           

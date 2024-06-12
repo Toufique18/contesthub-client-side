@@ -6,19 +6,21 @@ import "tailwindcss/tailwind.css";
 // import { Tooltip } from "react-tooltip";
 // import { AuthContext } from "../provider/AuthProvider";
 import hub from "../assets/Images/png/logo-no-background.png"
+import { useContext } from "react";
+import { AuthContext } from "../provider/AuthProvider";
 
 
 const Header = () => {
-    // const { user, logOut } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
 
-    // const handleLogOut = () => {
-    //     logOut()
-    //         .then()
-    //         .catch()
-    // }
+    const handleLogOut = () => {
+        logOut()
+            .then()
+            .catch()
+    }
 
-    // const userName = user ? user.displayName : '';
-    // const userImage = user ? user.photoURL : '';
+    const userName = user ? user.displayName : '';
+    const userImage = user ? user.photoURL : '';
     const links = <>
 
         <li><NavLink className={({ isActive }) => isActive ? "btn text-purple-600 border-2 border-purple-500" : "text-neutral-900 text-opacity-80 text-lg font-normal font-['Work Sans']"} to="/">Home</NavLink></li>
@@ -51,32 +53,28 @@ const Header = () => {
                 </div>
 
                 <div className="navbar-end">
-                    <div className="dropdown dropdown-end">
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                            <div className="w-10 rounded-full">
-                                <img alt="Tailwind CSS Navbar component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                {user ? (
+                        <div className="dropdown dropdown-end">
+                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                <div className="w-10 rounded-full">
+                                    <img alt="User Avatar" src={userImage} />
+                                </div>
                             </div>
+                            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                                <li>
+                                    <a className="justify-between">
+                                        {userName}
+                                    </a>
+                                </li>
+                                <li><NavLink to={'/dashboard'}>Dashboard</NavLink></li>
+                                <li><button onClick={handleLogOut} className="btn">Sign Out</button></li>
+                            </ul>
                         </div>
-                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                            <li>
-                                <a className="justify-between">
-                                    Profile
-                                    <span className="badge">New</span>
-                                </a>
-                            </li>
-                            <li><NavLink to={'/dashboard'}>Dashboard</NavLink></li>
-                            <li><a>Logout</a></li>
-                        </ul>
-                    </div>
-                    <button className="btn">Login</button>
-                    {/* {
-                        user ?
-                            <button onClick={handleLogOut} className="btn">Sign Out</button>
-                            :
-                            <Link to="/login">
-                                <button className="btn">Login</button>
-                            </Link>
-                    } */}
+                    ) : (
+                        <Link to="/login">
+                            <button className="btn">Login</button>
+                        </Link>
+                    )}
                 </div>
             </div>
         </div>

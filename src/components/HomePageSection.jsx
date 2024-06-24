@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'daisyui/dist/full.css';
+import { Link } from 'react-router-dom';
 
 const HomePageSection = () => {
   const [stats, setStats] = useState({
@@ -67,7 +68,7 @@ const HomePageSection = () => {
       </div>
 
       <div className="flex justify-center mt-6">
-        <button className="btn btn-primary btn-wide md:btn-md lg:btn-lg">Join a Contest Now!</button>
+        <Link to={'/contests'}><button className="btn btn-primary btn-wide md:btn-md lg:btn-lg">Join a Contest Now!</button></Link>
       </div>
     </div>
   );

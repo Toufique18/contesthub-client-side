@@ -60,9 +60,7 @@ const MyParticipatedContests = () => {
     return <div>You must be logged in to view your participated contests.</div>;
   }
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  
 
   if (error) {
     return <div>Error: {error}</div>;

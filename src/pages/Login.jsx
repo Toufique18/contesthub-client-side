@@ -39,16 +39,17 @@ const Login = () => {
     };
 
     const saveUserToDatabase = (user) => {
-        fetch('http://localhost:5000/users', {
+        fetch('https://contesthub-server-gules.vercel.app/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                uid: user.uid,
+                
                 displayName: user.displayName,
                 email: user.email,
-                photoURL: user.photoURL
+                role: 'user'
+                
             })
         })
         .then(response => response.json())

@@ -10,7 +10,7 @@ const ManageUser = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await fetch('http://localhost:5000/users');
+            const response = await fetch('https://contesthub-server-gules.vercel.app/users');
             const data = await response.json();
             console.log("Fetched users:", data); // Logging the fetched users
             setUsers(data);
@@ -21,7 +21,7 @@ const ManageUser = () => {
 
     const toggleUserRole = async (userId, newRole) => {
         try {
-            await fetch(`http://localhost:5000/users/${userId}/role`, {
+            await fetch(`https://contesthub-server-gules.vercel.app/users/${userId}/role`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ const ManageUser = () => {
 
     const deleteUser = async (userId) => {
         try {
-            await fetch(`http://localhost:5000/users/${userId}`, {
+            await fetch(`https://contesthub-server-gules.vercel.app/users/${userId}`, {
                 method: 'DELETE'
             });
             Swal.fire('Success', 'User deleted successfully', 'success');

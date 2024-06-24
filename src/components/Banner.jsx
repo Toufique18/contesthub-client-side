@@ -10,8 +10,8 @@ const Banner = () => {
         <section >
             <div className="bg-violet-400">
                 <div className="container flex flex-col items-center px-4 py-16 pb-24 mx-auto text-center lg:pb-56 md:py-32 md:px-10 lg:px-32 text-gray-900">
-                    <h1 className="text-5xl font-bold leading-none sm:text-6xl xl:max-w-3xl text-gray-900">Provident blanditiis cum exercitationem</h1>
-                    <p className="mt-6 mb-8 text-lg sm:mb-12 xl:max-w-3xl text-gray-900">Cupiditate minima voluptate temporibus quia? Architecto beatae esse ab amet vero eaque explicabo!</p>
+                    <h1 className="text-5xl font-bold leading-none sm:text-6xl xl:max-w-3xl text-gray-900">Wellcome To Contesthub</h1>
+                    <p className="mt-6 mb-8 text-lg sm:mb-12 xl:max-w-3xl text-gray-900">Enjoy a seamless and user-friendly experience with our intuitive interface. Easily browse through contests, participate, and track your progress</p>
                     <div className="flex flex-wrap justify-center">
                         <fieldset className="w-full space-y-1 text-gray-100">
                             <label htmlFor="Search" className="hidden">Search</label>

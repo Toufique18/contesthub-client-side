@@ -57,7 +57,7 @@ const Register = () => {
     };
 
     const saveUserToDatabase = (user) => {
-        fetch('http://localhost:5000/users', {
+        fetch('https://contesthub-server-gules.vercel.app/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -65,6 +65,7 @@ const Register = () => {
             body: JSON.stringify({
                 displayName: user.displayName,
                 email: user.email,
+                role: 'user'
                 
             })
         })

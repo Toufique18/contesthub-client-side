@@ -27,10 +27,7 @@ const AuthProvider = ({children}) => {
         return signInWithPopup(auth, provider);
     };
 
-    const signInWithGithub = () => {
-        const providers = new GithubAuthProvider();
-        return signInWithPopup(auth, providers);
-    };
+    
 
 
     const logOut = () => {

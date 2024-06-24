@@ -53,12 +53,13 @@ const Dashboard = () => {
                             <>
                                 <li><NavLink to={'/dashboard/myParticipatedContests'}>My Participated Contests</NavLink></li>
                                 <li><NavLink to={'/dashboard/myWinningContests'}>My Winning Contests</NavLink></li>
+                                <li><NavLink to={'/dashboard/myProfile'}>My Profile</NavLink></li>
                             </>
                         )}
-                        {(isAdmin || isContestCreator || isUser) && <li><NavLink to={'/dashboard/myProfile'}>My Profile</NavLink></li>}
+                        
                         <div className="divider"></div>
-                        {/* <li><Button onClick={handleLogOut}>Log Out</Button></li> */}
-                        <li><button onClick={handleLogOut}>Log Out</button></li>
+                        
+                        
                     </ul>
                 </div>
             </div>

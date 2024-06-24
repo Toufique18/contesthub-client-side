@@ -58,7 +58,11 @@ const MyCreatedContests = () => {
                 <table className="table w-full">
                     <thead>
                         <tr>
-                            
+                            <th>Contest Name</th>
+                            <th>Prize Money</th>
+                            <th>Status</th>
+                            <th>Comments</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>

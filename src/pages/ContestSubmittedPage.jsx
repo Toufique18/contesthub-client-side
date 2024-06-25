@@ -4,7 +4,6 @@ import { AuthContext } from '../provider/AuthProvider';
 
 const ContestSubmittedPage = () => {
     const { user } = useContext(AuthContext);
-
     const [contests, setContests] = useState([]);
     const [selectedContest, setSelectedContest] = useState(null);
     const [participants, setParticipants] = useState([]);
@@ -77,7 +76,7 @@ const ContestSubmittedPage = () => {
                                 <li key={participant._id} className="mb-4">
                                     <p><span className="font-semibold">Name:</span> {participant.name}</p>
                                     <p><span className="font-semibold">Email:</span> {participant.email}</p>
-                                    <p><span className="font-semibold">Submission URL:</span> <a href={participant.submissionURL} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{participant.submissionURL}</a></p>
+                                    <p><span className="font-semibold">Submission URL: {participant.submissionUrl}</span> </p>
                                     <button
                                         onClick={() => handleDeclareWin(participant)}
                                         disabled={new Date(selectedContest.deadline) > new Date()}

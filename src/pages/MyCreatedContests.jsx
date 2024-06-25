@@ -15,7 +15,7 @@ const MyCreatedContests = () => {
     }, [user]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/fetch-accepted-contests/${user?.email}`)
+        fetch(`https://contesthub-server-gules.vercel.app/fetch-accepted-contests/${user?.email}`)
             .then(res => res.json())
             .then(data => setAcceptedContests(data));
     }, [user]);

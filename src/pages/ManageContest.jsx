@@ -4,6 +4,8 @@ import 'daisyui/dist/full.css';
 
 const ManageContest = () => {
     const [contests, setContests] = useState([]);
+    const [contestes, setContestes] = useState([]);
+
     const [selectedContest, setSelectedContest] = useState(null);
     const [comment, setComment] = useState("");
 
@@ -12,6 +14,14 @@ const ManageContest = () => {
             .then(res => res.json())
             .then(data => {
                 setContests(data);
+            })
+            .catch(error => console.error('Error fetching contests:', error));
+    }, []);
+    useEffect(() => {
+        fetch(`https://contesthub-server-gules.vercel.app/fetch-confirm-contestes`)
+            .then(res => res.json())
+            .then(data => {
+                setContestes(data);
             })
             .catch(error => console.error('Error fetching contests:', error));
     }, []);
@@ -120,6 +130,36 @@ const ManageContest = () => {
       };
       
 
+      const handleDeletes = _id => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`https://contesthub-server-gules.vercel.app/confirm/${_id}`, {
+                    method: 'DELETE'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.deletedCount > 0) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your contest has been deleted.",
+                                icon: "success"
+                            });
+                            // Remove the deleted contest from the state
+                            setContestes(contests => contests.filter(contest => contest._id !== _id));
+                        }
+                    })
+                    .catch(error => console.error('Error deleting contest:', error));
+            }
+        });
+    };
     return (
         <div className="container mx-auto p-4">
             <h1 className="text-3xl font-semibold mb-6">Pending Contests</h1>
@@ -175,6 +215,40 @@ const ManageContest = () => {
                     </div>
                 </div>
             )}
+
+            <div>
+            <h1 className="text-3xl font-semibold mb-6 mt-6">Confirm Contests</h1>
+            <div className="overflow-x-auto">
+                <table className="table w-full">
+                    <thead>
+                        <tr>
+                            <th>Contest Name</th>
+                            <th>Prize Money</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {contestes.map(conteste => (
+                            <tr key={conteste._id}>
+                                <td>{conteste.contestName}</td>
+                                <td>{conteste.prizeMoney}</td>
+                                <td>Accepted</td>
+                                <td className="space-x-2">
+                                    
+                                    <button 
+                                        className="btn btn-sm btn-error" 
+                                        onClick={() => handleDeletes(conteste._id)}>
+                                        Delete
+                                    </button>
+                                    
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            </div>
         </div>
     );
 };

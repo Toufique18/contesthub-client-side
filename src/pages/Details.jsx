@@ -42,6 +42,11 @@ const Details = () => {
       </div>
 
       <div className="mb-2 md:mb-4">
+        <strong className="block text-sm md:text-base lg:text-lg">Creator Name:</strong>
+        <span className="badge badge-primary">{contest.creatorNames}</span>
+      </div>
+
+      <div className="mb-2 md:mb-4">
         <strong className="block text-sm md:text-base lg:text-lg">Prize:</strong>
         <span className="badge badge-primary">{contest.prizeMoney} $</span>
       </div>

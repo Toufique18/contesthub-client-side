@@ -7,10 +7,10 @@ import "react-datepicker/dist/react-datepicker.css";
 const Edit = () => {
   const contests = useLoaderData();
   const { id } = useParams();
-  const contest = contests.find(contest => contest._id === id);
+  const contest = contests.find((contest) => contest._id === id);
   const [deadline, setDeadline] = useState(new Date(contest.deadline));
 
-  const handleUpdate = event => {
+  const handleUpdate = async (event) => {
     event.preventDefault();
     const form = event.target;
 
@@ -22,42 +22,77 @@ const Edit = () => {
     const taskInstruction = form.taskInstruction.value;
     const selectedTag = form.selectedTag.value;
     const email = contest.email;
+    const creatorNames = contest.creatorNames;
+    const creatorImages = contest.creatorImages;
 
-    const formData = new FormData();
-    formData.append("contestName", contestName);
-    formData.append("image", image);
-    formData.append("description", description);
-    formData.append("price", price);
-    formData.append("prizeMoney", prizeMoney);
-    formData.append("taskInstruction", taskInstruction);
-    formData.append("selectedTag", selectedTag);
-    formData.append("deadline", deadline.toISOString());
-    formData.append("email", email);
+    let image_url = contest.image; // Use existing image URL if no new image is uploaded
+    if (image) {
+      image_url = await uploadImage(image);
+    }
+
+    const formData = {
+      contestName,
+      image: image_url,
+      description,
+      price,
+      prizeMoney,
+      taskInstruction,
+      selectedTag,
+      deadline: deadline.toISOString(),
+      email,
+      creatorNames,
+      creatorImages,
+    };
 
     fetch(`https://contesthub-server-gules.vercel.app/pending/${contest._id}`, {
       method: 'PUT',
-      body: formData
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data.modifiedCount > 0) {
           Swal.fire({
             title: 'Success!',
             text: 'Data updated',
             icon: 'success',
-            confirmButtonText: 'OK'
+            confirmButtonText: 'OK',
           });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error updating contest:', error);
         Swal.fire({
           title: 'Error!',
           text: 'Failed to update contest',
           icon: 'error',
-          confirmButtonText: 'OK'
+          confirmButtonText: 'OK',
         });
       });
+  };
+
+  const uploadImage = async (imageFile) => {
+    try {
+      const formData = new FormData();
+      formData.append("image", imageFile);
+
+      const response = await fetch(`https://api.imgbb.com/1/upload?key=e04b2c2c85ddbc2b9379722536771dca`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        return data.data.display_url; // Return the hosted image URL
+      } else {
+        throw new Error("Failed to upload image");
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      throw error;
+    }
   };
 
   return (
@@ -144,7 +179,7 @@ const Edit = () => {
               <label>Contest Deadline:</label>
               <DatePicker
                 selected={deadline}
-                onChange={date => setDeadline(date)}
+                onChange={(date) => setDeadline(date)}
                 showTimeSelect
                 timeFormat="HH:mm"
                 timeIntervals={15}
@@ -153,14 +188,38 @@ const Edit = () => {
               />
             </div>
             <div>
-              <label>Donator Email:</label>
+              <label>Email:</label>
               <input
                 type="email"
                 value={contest.email}
                 readOnly
                 name="email"
                 id="email"
-                placeholder="Donator Email"
+                placeholder="Email"
+                className="input w-full border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+              />
+            </div>
+            <div>
+              <label>Creator Name:</label>
+              <input
+                type="text"
+                value={contest.creatorNames}
+                readOnly
+                name="creatorNames"
+                id="creatorNames"
+                placeholder="Creator Name"
+                className="input w-full border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+              />
+            </div>
+            <div>
+              <label>Creator Image:</label>
+              <input
+                type="text"
+                value={contest.creatorImages}
+                readOnly
+                name="creatorImages"
+                id="creatorImages"
+                placeholder="Creator Image"
                 className="input w-full border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
               />
             </div>

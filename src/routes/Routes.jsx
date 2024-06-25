@@ -16,11 +16,14 @@ import Edit from "../pages/Edit";
 import ManageContest from "../pages/ManageContest";
 import Details from "../pages/Details";
 import Payment from "../pages/payment/Payment";
+import ErrorPage from "../pages/ErrorPage";
+import PrivateRoute from "../pages/PrivateRoute";
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <Root />,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: '/',
@@ -29,26 +32,26 @@ const router = createBrowserRouter([
             },
             {
                 path: '/contests',
-                element: <Contest />,
+                element: <PrivateRoute><Contest></Contest></PrivateRoute>,
                 loader: () => fetch("https://contesthub-server-gules.vercel.app/contest_info")
             },
             {
                 path: '/details/:_id',
-                element: <Details></Details>,
+                element: <PrivateRoute><Details></Details></PrivateRoute>,
                 loader: () => fetch("https://contesthub-server-gules.vercel.app/contest_info")
             },
             {
                 path: '/payment/:contestId',
-                element: <Payment></Payment>
+                element: <PrivateRoute><Payment></Payment></PrivateRoute>
                 
             },
             {
                 path: '/login',
-                element: <Login />
+                element: <PrivateRoute><Login /></PrivateRoute>
             },
             {
                 path: '/register',
-                element: <Register />
+                element: <PrivateRoute><Register /></PrivateRoute>
             },
         ]
     },

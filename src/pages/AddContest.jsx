@@ -8,6 +8,8 @@ const AddContest = () => {
     const { user } = useContext(AuthContext);
     const [deadline, setDeadline] = useState(null);
     const userEmail = user ? user.email : '';
+    const creatorName = user ? user.displayName : '';
+    const creatorImage = user ? user.photoURL : '';
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -21,6 +23,8 @@ const AddContest = () => {
         const taskInstruction = form.taskInstruction.value;
         const selectedTag = form.selectedTag.value;
         const email = userEmail;
+        const creatorNames = creatorName;
+        const creatorImages = creatorImage;
 
         try {
             // Step 1: Upload image to image hosting service
@@ -37,9 +41,11 @@ const AddContest = () => {
                 selectedTag,
                 deadline,
                 email,
+                creatorNames,
+                creatorImages,
             };
 
-            const response = await fetch("http://localhost:5000/add-contest", {
+            const response = await fetch("https://contesthub-server-gules.vercel.app/add-contest", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',

@@ -45,7 +45,7 @@ Welcome to **Contest Hub**, a dynamic platform where users can create, participa
 
 ## How to Use
 
-1. Visit the [Contest Hub Live Site](http://example.com).
+1. Visit the [Contesthub](https://contesthub-d205f.web.app)
 2. Register or log in using your credentials.
 3. Browse through the available contests.
 4. Click on a contest to view its details.

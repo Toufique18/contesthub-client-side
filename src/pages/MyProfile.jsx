@@ -12,7 +12,7 @@ const MyProfile = () => {
         const fetchContestsData = async () => {
           try {
             // Fetch the total number of participated contests
-            const participatedResponse = await axios.get(`https://contesthub-server-gules.vercel.app/participated-contests/${user.uid}`);
+            const participatedResponse = await axios.get(`https://contesthub-server-gules.vercel.app/participated-contest/${user.uid}`);
             setParticipatedContests(participatedResponse.data.count);
   
             // Fetch the total number of won contests

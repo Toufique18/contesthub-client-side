@@ -68,7 +68,7 @@ const PaymentForm = ({ amount }) => {
         name: user.displayName,
         photoURL: user.photoURL,
       });
-
+//toufique
       const paymentResult = await stripe.confirmCardPayment(clientSecret.clientSecret, {
         payment_method: {
           card: cardElement,

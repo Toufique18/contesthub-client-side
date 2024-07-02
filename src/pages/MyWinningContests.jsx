@@ -16,14 +16,13 @@ const MyWinningContests = () => {
       const fetchParticipationData = async () => {
         try {
           const [participatedRes, wonRes, wonContestsRes] = await Promise.all([
-            axios.get(`https://contesthub-server-gules.vercel.app/participated-contests/${user.uid}`),
+            axios.get(`https://contesthub-server-gules.vercel.app/participated-contest/${user.uid}`),
             axios.get(`https://contesthub-server-gules.vercel.app/won-contests/${user.uid}`),
             axios.get(`https://contesthub-server-gules.vercel.app/won-contests-details/${user.uid}`)
           ]);
-
-          setParticipatedCount(participatedRes.data.count);
-          setWonCount(wonRes.data.count);
-          setWonContests(wonContestsRes.data.contests);
+          setParticipatedCount(participatedRes.data.count); // Update participated count
+          setWonCount(wonRes.data.count); // Update won count
+          setWonContests(wonContestsRes.data.contests); // Update won contests data
           setLoading(false);
         } catch (err) {
           setError(err.message);
@@ -77,7 +76,7 @@ const MyWinningContests = () => {
                     <img src={contest.image} alt={contest.contestName} className="rounded-lg shadow-md max-w-full h-auto" />
                   </div>
                 )}
-                <p><strong>Prize:</strong> {contest.prizeMoney} $</p>
+                <p><strong>Prize:</strong> {contest.prizeMoney}</p>
                 <p><strong>Description:</strong> {contest.description}</p>
                 <p><strong>Deadline:</strong> {new Date(contest.deadline).toLocaleDateString()}</p>
                 <Link to={`/details/${contest._id}`} className="text-blue-500 hover:underline">

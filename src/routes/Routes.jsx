@@ -32,7 +32,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/contests',
-                element: <PrivateRoute><Contest></Contest></PrivateRoute>,
+                element: <Contest></Contest>,
                 loader: () => fetch("https://contesthub-server-gules.vercel.app/contest_info")
             },
             {
@@ -47,11 +47,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/login',
-                element: <PrivateRoute><Login /></PrivateRoute>
+                element: <Login />
             },
             {
                 path: '/register',
-                element: <PrivateRoute><Register /></PrivateRoute>
+                element: <Register />
             },
         ]
     },
